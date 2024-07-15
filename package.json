@@ -1,7 +1,7 @@
 {
   "name": "restaurantchatbot",
   "version": "1.0.0",
-  "description": "A simple restaurant chatbot application",
+  "description": "",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
