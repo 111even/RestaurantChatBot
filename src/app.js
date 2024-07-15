@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const chatbotRoutes = require('./src/routes/chatbot');
+const chatbotRoutes = require('./routes/chatbot'); // Ensure this path is correct
 
 const app = express();
 const PORT = process.env.PORT || 8000; // Use environment variable or default to 8000
@@ -21,4 +21,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
-
