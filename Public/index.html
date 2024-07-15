@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Chatbot</title>
+    <style>
+        #chatbox {
+            width: 300px;
+            height: 400px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+        #userInput {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('userInput');
+
+        function appendMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.innerText = `${sender}: ${message}`;
+            chatbox.appendChild(messageElement);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const message = userInput.value;
+            appendMessage('You', message);
+            userInput.value = '';
+
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await response.json();
+            appendMessage('Bot', data.reply);
+        }
+
+        window.onload = () => {
+            appendMessage('Bot', 'Select 1 to Place an order\nSelect 99 to checkout order\nSelect 98 to see order history\nSelect 97 to see current order\nSelect 0 to cancel order');
+        };
+    </script>
+</body>
+</html>
